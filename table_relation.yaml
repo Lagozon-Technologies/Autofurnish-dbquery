@@ -1,0 +1,127 @@
+RELATIONSHIPS:
+
+  - left_table: Company_mapping_GMPL
+    left_columns: [CompanyId]
+    right_table: Company_GMPL
+    right_columns: [ID]
+    cardinality: ManyToOne
+    description: Company mapping to Company (GMPL)
+
+  - left_table: tbl_OTCSale_GMPL
+    left_columns: [ProductID]
+    right_table: ProductMaster_GMPL
+    right_columns: [ID]
+    cardinality: ManyToOne
+    description: OTC Sale to Product Master (GMPL)
+
+  - left_table: tbl_OTCSale_GMPL
+    left_columns: [CustomerShippingAddress]
+    right_table: Company_mapping_GMPL
+    right_columns: [ID]
+    cardinality: ManyToOne
+    description: OTC Sale Shipping Address to Company mapping (GMPL)
+
+  - left_table: tbl_OTCSale_GMPL
+    left_columns: [CompanyBillID]
+    right_table: Company_mapping_GMPL
+    right_columns: [ID]
+    cardinality: ManyToOne
+    description: OTC Sale Billing Company to Company mapping (GMPL)
+
+  - left_table: AmazonListing_GMPL
+    left_columns: [OriginalSku]
+    right_table: ProductMaster_GMPL
+    right_columns: [SKU]
+    cardinality: ManyToOne
+    description: Amazon Listing to Product Master (SKU) (GMPL)
+
+  - left_table: AmazonListing_GMPL
+    left_columns: [MSKU]
+    right_table: ProductMaster_GMPL
+    right_columns: [MSKU]
+    cardinality: ManyToOne
+    description: Amazon Listing to Product Master (MSKU) (GMPL)
+
+  - left_table: tbl_Amazon_GMPL
+    left_columns: [SKU]
+    right_table: AmazonListing_GMPL
+    right_columns: [Sku]
+    cardinality: ManyToOne
+    description: Amazon table to Amazon Listing (GMPL)
+
+  - left_table: AF_OrderItemS_GMPL
+    left_columns: [AFOrderId]
+    right_table: Autofurnish_OrderS_GMPL
+    right_columns: [OrderNo]
+    cardinality: ManyToOne
+    description: AutoFurnish Order Items to Orders (GMPL)
+
+  - left_table: AF_OrderItemS_GMPL
+    left_columns: [Lineitem_sku]
+    right_table: ProductMaster_GMPL
+    right_columns: [SKU]
+    cardinality: ManyToOne
+    description: AutoFurnish Order Items to Product Master (GMPL)
+
+  - left_table: InventoryDetail_GMPL
+    left_columns: [WarehouseId]
+    right_table: tbl_Warehouse_GMPL
+    right_columns: [ID]
+    cardinality: ManyToOne
+    description: Inventory to Warehouse (GMPL)
+
+  - left_table: InventoryDetail_GMPL
+    left_columns: [RackId]
+    right_table: tbl_Rack_GMPL
+    right_columns: [ID]
+    cardinality: ManyToOne
+    description: Inventory to Rack (GMPL)
+
+  - left_table: InventoryDetail_GMPL
+    left_columns: [MSKU]
+    right_table: ProductMaster_GMPL
+    right_columns: [MSKU]
+    cardinality: ManyToOne
+    description: Inventory to Product Master (MSKU) (GMPL)
+
+  - left_table: InventoryDetail_GMPL
+    left_columns: [Status]
+    right_table: StatusMaster_GMPL
+    right_columns: [Id]
+    cardinality: ManyToOne
+    description: Inventory to Status Master (GMPL)
+
+  - left_table: tbl_Rack_GMPL
+    left_columns: [WarehouseId]
+    right_table: tbl_Warehouse_GMPL
+    right_columns: [ID]
+    cardinality: ManyToOne
+    description: Rack to Warehouse (GMPL)
+
+  - left_table: Company_mapping_AL
+    left_columns: [CompanyId]
+    right_table: Company_AL
+    right_columns: [ID]
+    cardinality: ManyToOne
+    description: Company mapping to Company (AL)
+
+  - left_table: tbl_OTCSale_AL
+    left_columns: [ProductID]
+    right_table: ProductMaster_AL
+    right_columns: [ID]
+    cardinality: ManyToOne
+    description: OTC Sale to Product Master (AL)
+
+  - left_table: tbl_OTCSale_AL
+    left_columns: [CustomerShippingAddress]
+    right_table: Company_mapping_AL
+    right_columns: [ID]
+    cardinality: ManyToOne
+    description: OTC Sale Shipping Address to Company mapping (AL)
+
+  - left_table: tbl_OTCSale_AL
+    left_columns: [CompanyBillID]
+    right_table: Company_mapping_AL
+    right_columns: [ID]
+    cardinality: ManyToOne
+    description: OTC Sale Billing Company to Company mapping (AL)
