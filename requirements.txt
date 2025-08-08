@@ -1,4 +1,4 @@
-﻿annotated-types==0.7.0
+annotated-types==0.7.0
 anyio==4.9.0
 asgiref==3.9.1
 azure-core==1.32.0
@@ -23,6 +23,7 @@ contourpy==1.3.2
 cryptography==45.0.5
 cycler==0.12.1
 cymem==2.0.11
+Deprecated==1.2.18
 distro==1.9.0
 durationpy==0.10
 en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl#sha256=1932429db727d4bff3deed6b34cfc05df17794f4a52eeb26cf8928f7c1a0fb85
@@ -38,6 +39,7 @@ google-cloud-core==2.4.3
 google-crc32c==1.7.1
 google-resumable-media==2.7.2
 googleapis-common-protos==1.70.0
+greenlet==3.2.3
 grpcio==1.73.1
 grpcio-status==1.73.1
 h11==0.16.0
@@ -59,6 +61,7 @@ langcodes==3.5.0
 langdetect==1.0.9
 language_data==1.3.0
 limiter==0.5.0
+limits==5.4.0
 marisa-trie==1.2.1
 markdown-it-py==3.0.0
 MarkupSafe==3.0.2
@@ -99,14 +102,15 @@ pycparser==2.22
 pydantic==2.6.4
 pydantic_core==2.16.3
 Pygments==2.19.2
+pyodbc==5.2.0
 pyparsing==3.2.3
 PyPika==0.48.9
 pyproject_hooks==1.2.0
 pyreadline3==3.5.4
-pysqlite3-binary #for deployed versions..
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 python-multipart==0.0.20
+pysqlite3-binary #for deployed versions..
 pytz==2025.2
 PyYAML==6.0.2
 requests==2.32.4
@@ -121,11 +125,14 @@ sniffio==1.3.1
 spacy==3.8.7
 spacy-legacy==3.0.12
 spacy-loggers==1.0.5
+SQLAlchemy==2.0.41
 srsly==2.5.1
 starlette==0.37.2
+StrEnum==0.4.15
 sympy==1.14.0
 tenacity==9.1.2
 thinc==8.3.4
+token-bucket==0.3.0
 tokenizers==0.21.2
 tqdm==4.67.1
 typer==0.16.0
