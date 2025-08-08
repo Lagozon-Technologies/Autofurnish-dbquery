@@ -1,0 +1,288 @@
+[{
+  "id": "Company_GMPL",
+  "document": "Company master data containing vendor information. Columns include ID, VendorId, CompanyName, CompanyType, CreatedBy, and CreatedOn. This table stores core company details for the GMPL system, supporting vendor management and identification.",
+  "metadata": {
+    "type": "table",
+    "primary_key": "ID",
+    "join_guidance": []
+  }
+},
+
+  {
+    "id": "company_mapping_GMPL",
+    "document": "Stores extended and mapped company details, including Id, CompanyId, VendorCode, ContactPerson, ContactNumber, EmailAddress, Address2, City, State, GSTNO, PanNo, PinCode, StateCode, Transport, CreatedBy, and CreatedDate. Each record holds contact, billing, shipping, and statutory data, and is linked to a parent company (INNER JOIN to company_GMPL on CompanyId = ID). This supports comprehensive partner/vendor relationships, compliance, and operational workflows.", 
+    "metadata": {
+      "type": "table",
+      "primary_key": "Id",
+      "join_guidance": [
+        {
+          "table": "company_GMPL",
+          "on": "CompanyId = ID",
+          "join_type": "INNER JOIN",
+          "optional": false,
+          "description": "Mapped to parent company."
+        }
+      ]
+    }
+  },
+  {
+    "id": "tbl_OTCSale_GMPL",
+    "document": "Stores Over-the-Counter (OTC) sale transaction records. Includes fields such as OTCID, OrderNo, OrderStatus, ProductID, Quantity, Amount, Address, IsInvoice, OrderDate, CustomerName, Payment_Status, SKU, Delivery_Charges, Tax, Selling_Price, TIN, Transport, AgainstForm, ContactPerson, ContactNumber, EmailId, ProductDiscount, OrderDiscount, HSN_Code, CreatedDate, VendorId, MSKU, CustomerShippingAddress, CompanyBillID, InvoiceNo, IsCredit, and TCSAmount. Each record associates a product (INNER JOIN to productmaster_GMPL on ProductID = Id), and may include shipping or billing company mappings (LEFT OUTER JOIN to company_mapping_GMPL on CustomerShippingAddress = Id and CompanyBillID = Id). Supports comprehensive OTC billing, shipping, invoicing, and compliance workflows.",
+    "metadata": {
+      "type": "table",
+      "primary_key": "OTCID",
+      "join_guidance": [
+        {
+          "table": "productmaster_GMPL",
+          "on": "ProductID = Id",
+          "join_type": "INNER JOIN",
+          "optional": false,
+          "description": "Each sale is for a product."
+        },
+        {
+          "table": "company_mapping_GMPL",
+          "on": "CustomerShippingAddress = Id",
+          "join_type": "LEFT OUTER JOIN",
+          "optional": true,
+          "description": "May include shipping address from mapping."
+        },
+        {
+          "table": "company_mapping_GMPL",
+          "on": "CompanyBillID = Id",
+          "join_type": "LEFT OUTER JOIN",
+          "optional": true,
+          "description": "May include billing address from mapping."
+        }
+      ]
+    }
+  },
+  {
+  "id": "ProductMaster_GMPL",
+  "document": "Product master data containing comprehensive product information, categorization, specifications, and pricing. Columns include Id, SKU, PSKU, ProductStatus, MasterCategoryId, Category1, Category2, Category3, Category4, SubCategory, CarBrand, CarModel, CarYear, ProductSource, MaterialSource, ProductModel, Manufacture, ProductName, Weight, HSNCode, GSTRate, MSP, WSPrice, RP, AFcom, MPPrice, MRP, MPTHProfit, ProductDescription, TechSpecifications, Highlights, AFHightlights, AFProductDescription, Varients, Color, Material, Height, Width, Length, Warranty, InTheBox, ImageLink1 through ImageLink20, MetaTitle, MetaKeywords, MetaDescription, ProductLink, MSKU, MName, CreatedDate, CreatedBy, ModifiedDate, ModifiedBy, IsActive, IsDeleted, DWeight, WarrantyInMonth, EANNumber, and OldMSKU. This table supports detailed management of automotive accessories and related product catalog data.",
+  "metadata": {
+    "type": "table",
+    "primary_key": "Id",
+    "join_guidance": []
+  }
+},
+
+  {
+    "id": "amazonlisting_GMPL",
+    "document":  "Stores Amazon product listing details and mappings for products. Fields include Id, ProductName, OriginalSku, Sku, Asin, Zoo Code, MRP, Brand, Type, Sellable, Quantity, IsActive, MSP, and MSKU. Each listing is linked to the master product table (INNER JOIN to productmaster_GMPL on OriginalSku = SKU OR MSKU = MSKU). This enables management, lookup, and integration of master products with their Amazon listings for e-commerce visibility and operations.",
+    "metadata": {
+      "type": "table",
+      "primary_key": "Id",
+      "join_guidance": [
+        {
+          "table": "productmaster_GMPL",
+          "on": "OriginalSku = SKU OR MSKU = MSKU",
+          "join_type": "INNER JOIN",
+          "optional": false,
+          "description": "Maps listing to master product."
+        }
+      ]
+    }
+  },
+  {
+  "id": "tbl_AmazonFlex_GMPL",
+  "document": "Amazon Flex Orders: Detailed transactional data of Amazon orders including order identifiers, dates, status, fulfillment, sales and order channels, product details, pricing, tax information, shipping details, promotions, buyer tax data, invoice flags, modification info, and Return to Origin (RTO) data. Columns include Id, amazonorderid, merchantorderid, purchasedate, lastupdateddate, orderstatus, fulfillmentchannel, saleschannel, orderchannel, url, shipservicelevel, productname, sku, asin, itemstatus, quantity, currency, itemprice, itemtax, shippingprice, shippingtax, giftwrapprice, giftwraptax, itempromotiondiscount, shippromotiondiscount, shipcity, shipstate, shippostalcode, shipcountry, promotionids, isbusinessorder, purchaseordernumber, pricedesignation, fulfilledby, buyercompanyname, buyercstnumber, buyervatnumber, buyertaxregistrationid, buyertaxregistrationcountry, buyertaxregistrationtype, isInvoice, ModifiedOn, ModifiedBy, Tax, HSN_Code, DRTO_Remarks, RTOType, RTODeliveryDate, RTOTrackingId, and RTOCourierName. This table enables comprehensive tracking and analysis of Amazon order transactions, shipping, taxation, and RTO management.",
+  "metadata": {
+    "type": "table",
+    "primary_key": "Id",
+    "join_guidance": []
+  }
+},
+{
+    "id": "tbl_amazon_GMPL",
+    "document": "Amazon Orders: Stores detailed Amazon transaction data including BillID, OrderId, OrderItemId, PurchaseDate, PaymentDate, BuyerName, BuyerPhoneNo, SKU, ProductName, Quantity, ItemPrice, Shipping addresses (ShippAddress1, ShippAddress2, ShippAddress3, ShippCity, ShippState, ShippCode, shipcountry), billing addresses (billname, billaddress1, billaddress2, billaddress3, billcity, billstate, billpostalcode, billcountry), invoice details (IsInvoice, InvoiceNo), fulfillment and status details (Fulfilled, Status, shipmentstatus), modification info (ModifiedOn, ModifiedBy), taxes and HSN_Code, shipping and item charges (ShippingPrice, ShippingTax, ItemTax), return information (RTOType, RTODeliveryDate, RTOTrackingId, RTOCourierName), promotions and discounts (itempromotiondiscount, itempromotionid, shippromotiondiscount, shippromotionid), delivery scheduling (deliverystartdate, deliveryenddate, deliverytimezone, deliveryInstructions), sales channels, payment details, buyer tax information, and various flags like IsPrime, IsBusinessOrder, IsReplacementOrder, and IsExchangeOrder. The SKU is linked via a LEFT OUTER JOIN to amazonlisting_GMPL.Sku to associate with Amazon product listings.",
+    "metadata": {
+      "type": "table",
+      "primary_key": "BillID",
+      "join_guidance": [
+        {
+          "table": "amazonlisting_GMPL",
+          "on": "SKU = Sku",
+          "join_type": "LEFT OUTER JOIN",
+          "optional": true,
+          "description": "SKU links to Amazon listing."
+        }
+      ]
+    }
+  },
+  {
+    "id": "af_orderitems_GMPL",
+    "document": "Autofurnish Order Items: Line items from Autofurnish orders. Columns include Id, AFOrderId, Lineitem_quantity, Lineitem_name, Lineitem_price, Lineitem_compare_at_price, Lineitem_sku, Lineitem_requires_shipping, Lineitem_taxable, Lineitem_fulfillment_status, and Lineitem_discount. Each item belongs to an Autofurnish order (INNER JOIN to autofurnish_orders_GMPL on AFOrderId = OrderNo) and may be linked to a master product via SKU (LEFT OUTER JOIN to productmaster_GMPL on Lineitem_sku = SKU).",
+    "metadata": {
+      "type": "table",
+      "primary_key": "Id",
+      "join_guidance": [
+        {
+          "table": "autofurnish_orders_GMPL",
+          "on": "AFOrderId = OrderNo",
+          "join_type": "INNER JOIN",
+          "optional": false,
+          "description": "Belongs to an Autofurnish order."
+        },
+        {
+          "table": "productmaster_GMPL",
+          "on": "Lineitem_sku = SKU",
+          "join_type": "LEFT OUTER JOIN",
+          "optional": true,
+          "description": "SKU links item to product."
+        }
+      ]
+    }
+  },
+  {
+  "id": "Autofurnish_OrderS_GMPL",
+  "document": "Autofurnish Orders: Detailed order transaction data including order identifiers, financial and fulfillment status, payment, billing and shipping details, discounts, taxes, currency, notes, cancellations, refunds, and various metadata. Columns include AFId, OrderNo, Email, Financial_Status, Paid_at, Fulfillment_Status, Fulfilled_at, Accepts_Marketing, Currency, Subtotal, Shipping, Taxes, Total, Discount_Code, Discount_Amount, Shipping_Method, Created_at, Billing_Name, Billing_Street, Billing_Address1, Billing_Address2, Billing_Company, Billing_City, Billing_Zip, Billing_Province, Billing_Country, Billing_Phone, Shipping_Name, Shipping_Street, Shipping_Address1, Shipping_Address2, Shipping_Company, Shipping_City, Shipping_Zip, Shipping_Province, Shipping_Country, Shipping_Phone, Notes, Note_Attributes, Cancelled_at, Payment_Method, Payment_Reference, Refunded_Amount, Id, Tags, Risk_Level, Source, Tax1_Name, Tax1_Value, Tax2_Name, Tax2_Value, Tax3_Name, Tax3_Value, Tax4_Name, Tax4_Value, Tax5_Name, Tax5_Value, Phone, Receipt_Number, Duties, Billing_Province_Name, Shipping_Province_Name, Payment_ID, Payment_Terms_Name, Next_Payment_Due_At, Payment_References, and others. This table supports end-to-end order, payment, and fulfillment tracking for Autofurnish.",
+  "metadata": {
+    "type": "table",
+    "primary_key": "AFId",
+    "join_guidance": []
+  }
+},
+
+  {
+    "id": "inventorydetail_GMPL",
+    "document": "Inventory Detail: Tracks inventory movements and statuses with fields including Id, WarehouseId, RackId, ManufactureUnitId, BatchNo, MSKU, UniqueCode, IsOut, OpenInventory, InventoryType, Published, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate, Comment, IsHold, Status, MoveFromWarehouseId, MoveBy, MoveDate, Description, IsDeleted, ReferenceNo, MSP, HandoverSticker, and EANNumber. Inventory locations are linked to warehouses (LEFT OUTER JOIN to tbl_warehouse_GMPL on WarehouseId = Id), racks (LEFT OUTER JOIN to tbl_rack_GMPL on RackId = Id), products by MSKU (LEFT OUTER JOIN to productmaster_GMPL on MSKU = MSKU), and statuses (LEFT OUTER JOIN to statusmaster_GMPL on Status = Id). This table supports detailed inventory tracking, location mapping, status management, and movement history.",
+    "metadata": {
+      "type": "table",
+      "primary_key": "Id",
+      "join_guidance": [
+        {
+          "table": "tbl_warehouse_GMPL",
+          "on": "WarehouseId = Id",
+          "join_type": "LEFT OUTER JOIN",
+          "optional": true,
+          "description": "Inventory location by warehouse."
+        },
+        {
+          "table": "tbl_rack_GMPL",
+          "on": "RackId = Id",
+          "join_type": "LEFT OUTER JOIN",
+          "optional": true,
+          "description": "Inventory storage rack."
+        },
+        {
+          "table": "productmaster_GMPL",
+          "on": "MSKU = MSKU",
+          "join_type": "LEFT OUTER JOIN",
+          "optional": true,
+          "description": "Inventory identified via MSKU."
+        },
+        {
+          "table": "statusmaster_GMPL",
+          "on": "Status = Id",
+          "join_type": "LEFT OUTER JOIN",
+          "optional": true,
+          "description": "Status of the inventory item."
+        }
+      ]
+    }
+  },
+  {
+  "id": "tbl_Warehouse_GMPL",
+  "document": "Warehouse master data capturing storage location details. Columns include Id, Name, UniqueId, Address, City, State, Country, Pincode, PhoneNo, CreatedBy, CreatedOn, and IsActive. Sample warehouses include 'Master Warehouse' and 'Factory' in Delhi, supporting inventory and logistics management.",
+  "metadata": {
+    "type": "table",
+    "primary_key": "Id",
+    "join_guidance": []
+  }
+},
+
+  {
+    "id": "tbl_rack_GMPL",
+    "document": "Rack: Storage rack data including Id, Name, WarehouseId, Floor, UniqueId, CreatedBy, and CreatedOn. Each rack belongs to a warehouse (INNER JOIN to tbl_warehouse_GMPL on WarehouseId = Id) enabling the organization of inventory storage locations within warehouses.",
+    "metadata": {
+      "type": "table",
+      "primary_key": "Id",
+      "join_guidance": [
+        {
+          "table": "tbl_warehouse_GMPL",
+          "on": "WarehouseId = Id",
+          "join_type": "INNER JOIN",
+          "optional": false,
+          "description": "Each rack belongs to a warehouse."
+        }
+      ]
+    }
+  },
+  {
+  "id": "StatusMaster_GMPL",
+  "document": "Status master data defining various status types and their names for different entities. Columns include Id, StatusType, StatusName, IsActive, CreatedBy, and CreatedDate. Status types include Regular (Active, InActive), Inventory (In, Out, Move, Intransit, OpenInventory), and RTO (Return to Origin). This table supports status tracking and workflow management.",
+  "metadata": {
+    "type": "table",
+    "primary_key": "Id",
+    "join_guidance": []
+  }
+},
+
+  {
+    "id": "Company_AL",
+    "document": "Company master data containing vendor information mapped to Company_AL system. Columns include ID, VendorId, CompanyName, CompanyType, CreatedBy, and CreatedOn. This table stores core company details for the AL system, supporting vendor management and identification.",
+    "metadata": {
+      "type": "table",
+      "primary_key": "ID",
+      "join_guidance": []
+    }
+  },
+  {
+    "id": "Company_Mapping_AL",
+    "document":  "Extended company contact and billing/shipping data mapped to Company_AL system, including Id, CompanyId, VendorCode, ContactPerson, ContactNumber, Email, Address, Address2, City, State, GSTNO, PanNo, PinCode, StateCode, Transport, CreatedBy, and CreatedDate. Each record links to a parent company (INNER JOIN to Company_AL on CompanyId = ID). This table supports detailed company contact information, statutory compliance data, and logistics handling.",
+    "metadata": {
+      "type": "table",
+      "primary_key": "Id",
+      "join_guidance": [
+        {
+          "table": "Company_AL",
+          "on": "CompanyId = ID",
+          "join_type": "INNER JOIN",
+          "optional": false,
+          "description": "Mapped to parent company."
+        }
+      ]
+    }
+  },
+  {
+    "id": "tbl_OTCSale_AL",
+    "document": "OTC Sales: Sale transactions including fields OTCID, OrderNo, OrderStatus, ProductID, Quantity, Amount, Address, IsInvoice, OrderDate, CustomerName, Payment_Status, SKU, Delivery_Charges, Tax, Selling_Price, TIN, Transport, AgainstForm, ContactPerson, ContactNumber, EmailId, ProductDiscount, OrderDiscount, HSN_Code, CreatedDate, VendorId, MSKU, InvoiceNo, IsCredit, TCSAmount, CustomerShippingAddress, CompanyBillID, and OLDPID. Each sale is associated with a product (INNER JOIN to ProductMaster_AL on ProductID = Id) and optionally linked to shipping and billing addresses from Company_Mapping_AL (LEFT OUTER JOINs).",
+    "metadata": {
+      "type": "table",
+      "primary_key": "OTCID",
+      "join_guidance": [
+        {
+          "table": "ProductMaster_AL",
+          "on": "ProductID = Id",
+          "join_type": "INNER JOIN",
+          "optional": false,
+          "description": "Each sale is for a product."
+        },
+        {
+          "table": "Company_Mapping_AL",
+          "on": "CustomerShippingAddress = Id",
+          "join_type": "LEFT OUTER JOIN",
+          "optional": true,
+          "description": "May include shipping address from mapping."
+        },
+        {
+          "table": "Company_Mapping_AL",
+          "on": "CompanyBillID = Id",
+          "join_type": "LEFT OUTER JOIN",
+          "optional": true,
+          "description": "May include billing address from mapping."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ProductMaster_AL",
+    "document": "Product master data containing product information, specifications, and pricing. Columns include Id, SKU, PSKU, ProductStatus, MasterCategoryId, Category1, Category2, Category3, Category4, SubCategory, CarBrand, CarModel, CarYear, ProductSource, MaterialSource, ProductModel, Manufacture, ProductName, Weight, HSNCode, GSTRate, MSP, WSPrice, RP, AFcom, MPPrice, MRP, MPTHProfit, ProductDescription, TechSpecifications, Highlights, AFHightlights, AFProductDescription, Varients, Color, Material, Height, Width, Length, Warranty, InTheBox, ImageLink1 through ImageLink20, MetaTitle, MetaKeywords, MetaDescription, ProductLink, MSKU, MName, CreatedDate, CreatedBy, ModifiedDate, ModifiedBy, IsActive, IsDeleted, DWeight, WarrantyInMonth, EANNumber, and OldMSKU. This table serves as the central product catalog for the AL system, supporting detailed categorization, pricing, and product content management.",
+    "metadata": {
+      "type": "table",
+      "primary_key": "Id",
+      "join_guidance": []
+    }
+  }
+
+]
