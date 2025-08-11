@@ -415,9 +415,9 @@ async def add_to_faqs(data: QueryInput, subject:str, request:Request):
     question_type = request.session.get('current_question_type')
 
     if question_type == 'generic':
-        blob_name = f'table_files/Azure-SQL-DB_questions_generic.csv'
+        blob_name = f'table_files/Autofurnish-POC.csv'
     elif question_type == "usecase":
-        blob_name = f'table_files/Azure-SQL-DB_questions.csv'
+        blob_name = f'table_files/Autofurnish-POC_questions_usecase.csv'
     try:
         # Get the blob client
         blob_client = blob_service_client.get_blob_client(container=AZURE_CONTAINER_NAME, blob=blob_name)
@@ -657,9 +657,9 @@ async def get_questions(request: Request, subject: str):
     """
     question_type = request.session.get('current_question_type')
     if question_type == 'generic':
-        csv_file_name = f"table_files/Azure-SQL-DB_questions_generic.csv"
+        csv_file_name = f"table_files/Autofurnish-POC.csv"
     else: 
-        csv_file_name = f"table_files/Azure-SQL-DB_questions.csv"
+        csv_file_name = f"table_files/Autofurnish-POC_questions_usecase.csv"
     blob_client = blob_service_client.get_blob_client(container=AZURE_CONTAINER_NAME, blob=csv_file_name)
 
     try:
@@ -1297,4 +1297,5 @@ async def set_question_type(payload: QuestionTypeRequest, request: Request):
     # request.session["prompts"] = prompts  # If you want to store prompts per session
 
     return JSONResponse(content={"message": "Question type set", "prompts": prompts})
+
 
