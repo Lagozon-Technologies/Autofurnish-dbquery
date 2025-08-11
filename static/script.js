@@ -216,7 +216,7 @@ function connectToDatabase(selectedDatabase) {
     }
     else if (selectedDatabase == 'Azure SQL') {
         sections = [
-            'Azure-SQL-DB'
+            'Autofurnish-POC'
         ]; // Directly specify PostgreSQL sections
     }
     else {
@@ -1162,3 +1162,4 @@ async function handleQuestionTypeChange(event) {
 document.querySelectorAll('input[name="questionType"]').forEach(radio => {
     radio.addEventListener('change', handleQuestionTypeChange);
 });
+
