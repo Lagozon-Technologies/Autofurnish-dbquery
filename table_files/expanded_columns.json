@@ -2469,7 +2469,7 @@
     "metadata": {
       "type": "column",
       "table_name": "tbl_Amazon_GMPL",
-      "data_type": "varchar(MAX)",
+      "data_type": "datetime",
       "nullable": true,
       "is_primary_key": false,
       "is_foreign_key": false
@@ -2488,7 +2488,7 @@
     "metadata": {
       "type": "column",
       "table_name": "tbl_Amazon_GMPL",
-      "data_type": "varchar(MAX)",
+      "data_type": "datetime",
       "nullable": true,
       "is_primary_key": false,
       "is_foreign_key": false
@@ -3101,7 +3101,7 @@
     "metadata": {
       "type": "column",
       "table_name": "tbl_AmazonFlex_GMPL",
-      "data_type": "varchar(MAX)",
+      "data_type": "datetime",
       "nullable": true,
       "is_primary_key": false,
       "is_foreign_key": false
@@ -3120,7 +3120,7 @@
     "metadata": {
       "type": "column",
       "table_name": "tbl_AmazonFlex_GMPL",
-      "data_type": "varchar(MAX)",
+      "data_type": "datetime",
       "nullable": true,
       "is_primary_key": false,
       "is_foreign_key": false

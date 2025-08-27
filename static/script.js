@@ -942,9 +942,12 @@ function updatePageContent(data) {
  *
  */
 function addToFAQs(subject) {
-    let userQuery = document.querySelector("#user_query_display span").innerText;
+    const userMessages = document.querySelectorAll('.user-message .message-content');
+    const userQuery = userMessages.length > 0 
+        ? userMessages[userMessages.length - 1].textContent.trim()
+        : document.getElementById("chat_user_query").value.trim();
 
-    if (!userQuery.trim()) {
+    if (!userQuery) {
         document.getElementById("faq-message").innerText = "Query cannot be empty!";
         return;
     }

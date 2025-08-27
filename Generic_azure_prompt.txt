@@ -32,7 +32,7 @@ Example:
     or
     WHERE zone_name COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%south%'
 - *Date Literals:*
-   - Use the format DATE 'YYYY-MM-DD'.  
+   - Use the format  'YYYY-MM-DD'.  
    -Example:
     WHERE order_date BETWEEN '2024-01-01' AND '2024-03-31'
   -- NOTE:
